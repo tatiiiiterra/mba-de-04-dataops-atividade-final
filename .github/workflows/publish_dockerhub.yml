@@ -23,11 +23,11 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
-      working-directory: ./python/scripts
+      working-directory: ./python
       run: |
         python -m pip install --upgrade pip
         python -m pip install pylint pytest
-        if [ -f ./python/scripts/requirements.txt ]; then pip install -r ./python/scripts/requirements.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Code Review
       working-directory: ./python/scripts
@@ -48,8 +48,8 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v5.3.0
       with:
-        context: .
-        file: ./python/Dockerfile
+        context: python
+        file: Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}

@@ -7,10 +7,10 @@ ARG db_password
 ENV DB_USER $db_user
 ENV DB_PASSWORD $db_password
 
-RUN mkdir -p /usr/src/data/raw
+RUN mkdir -p /usr/src/python/data/raw
 
-WORKDIR /usr/src
+WORKDIR /usr/src/python
 
-COPY . /usr/src
+COPY . /usr/src/python/
 
-RUN pip install -r ./requirements.txt
+RUN pip install -r requirements.txt
