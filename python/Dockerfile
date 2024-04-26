@@ -13,6 +13,6 @@ WORKDIR /usr/src/python-app
 
 COPY . /usr/src/python-app/
 
-RUN pip install -r requirements.txt
+RUN pip install -r ./python/requirements.txt
 RUN pip install mysql-connector-python
 RUN pip install SQLAlchemy
