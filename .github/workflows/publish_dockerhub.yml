@@ -2,7 +2,7 @@ name: Build and Push python Image to Docker Hub
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, main ]
 
 jobs:
   build-and-push:
