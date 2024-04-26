@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.11", "3.12" ]
+        python-version: [ "3.12" ]
 
     steps:
     - name: Checkout
@@ -29,7 +29,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Code Review
-      working-directory: scripts
+      working-directory: ./python/scripts
       run: pylint ingestion.py --fail-under=5.0
 
     - name: Log in to Docker Hub

@@ -1,3 +1,4 @@
+import logging
 import os
 import uuid
 from datetime import datetime
@@ -5,7 +6,6 @@ from datetime import datetime
 import requests
 import pandas as pd
 from dotenv import load_dotenv
-import logging
 
 from config import configs
 import utils
@@ -24,18 +24,19 @@ def ingestion():
     api_url = os.getenv('URL')
 
     try:
-        logging.info(f"Iniciando a coleta dos dados no endpoint {api_url}")
+        logging.info("Iniciando a coleta dos dados no endpoint %s", api_url)
         response = requests.get(api_url, timeout=10).json()
         data = response['results']
         df = pd.json_normalize(data)
         df['load_date'] = datetime.now().strftime("%H:%M:%S")
         file = f"{config_file['raw_path']}{str(uuid.uuid4())}.csv"
-        logging.info(f"Dados coletados, salvando no arquivo raw {file}")
+        logging.info("Dados coletados, salvando no arquivo raw %s", file)
         df.to_csv(file, sep=";", index=False)
         return file
     except Exception as exception_error:
-        logging.error(f"Erro na ingestão: {exception_error}")
+        logging.error("Erro na ingestão: %s",exception_error)
         utils.error_handler(exception_error, 'read_api')
+        return None
 
 
 def preparation(file):
@@ -46,7 +47,7 @@ def preparation(file):
     """
     try:
         logging.info("Iniciando a preparação")
-        logging.info(f"Lendo arquivo {file}")
+        logging.info("Lendo arquivo %s", file)
         df = pd.read_csv(file, sep=";")
         clean_data = utils.Sanitation(df, config_file)
         clean_data.select_rename()
@@ -56,7 +57,7 @@ def preparation(file):
         clean_data.save_work()
         logging.info("Dados salvos")
     except Exception as exception_error:
-        logging.error(f"Erro na preparação: {exception_error}")
+        logging.error("Erro na preparação: %s", exception_error)
         utils.error_handler(exception_error, 'preparation')
 
 if __name__ == '__main__':
