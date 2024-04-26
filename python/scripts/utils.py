@@ -14,7 +14,9 @@ class Sanitation:
         self.len_cols = max(list(self.metadata["id"]))
         self.columns = list(self.metadata['nome_original'])
         self.new_columns = list(self.metadata['nome'])
-        self.path_work = configs["work_path"]        
+        self.path_work = configs["work_path"]
+        self.db_user = os.getenv('DB_USER')
+        self.db_password = os.getenv('DB_PASSWORD')
 
     def select_rename(self):
         self.data = self.data.loc[:, self.columns]
@@ -39,11 +41,11 @@ class Sanitation:
         self.data['load_date'] = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
         con = mysql.connector.connect(
-            user='root', password='root', host='mysql', port="3306", database='db')
+            user=self.db_user, password=self.db_password, host='mysql', port="3306", database='db')
         
         print("DB connected")
 
-        engine  = create_engine("mysql+mysqlconnector://root:root@mysql/db")
+        engine  = create_engine(f"mysql+mysqlconnector://{self.db_user}:{self.db_password}@mysql/db")
         self.data.to_sql('cadastro', con=engine, if_exists='append', index=False)
         con.close()
 
