@@ -13,4 +13,6 @@ WORKDIR /usr/src/python-app
 
 COPY . /usr/src/python-app/
 
+RUN ls .
+
 RUN pip install -r ./requirements.txt
