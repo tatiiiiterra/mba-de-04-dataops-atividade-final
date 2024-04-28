@@ -1,67 +1,91 @@
-# Projeto disciplina de DataOps
+# Projeto DataOps - Develop and Deliver Analytics
 
-## Projeto final de DataOps, da Faculdade Impacta de Tecnologia, focado para tratamento automatizado de dados para o metadado via Docker.
+## Faculdade Impacta - Curso: MBA Data Engineering
 
-### Escopo do projeto abaixo:
+Este é um projeto de DataOps para realizar a ingestão, preparação e armazenamento de dados provenientes da API `randomuser.me`. O projeto abrange desde a obtenção dos dados brutos até o armazenamento dos dados saneados em uma tabela MySQL, garantindo tratamentos mínimos e registro de logs para cada etapa do processo.
 
+## Escopo do Projeto
 ![](imgs/imagem1.jpeg)
 
-O principal objetivo é estar utilizando o site https://randomuser.me/api/?results=10 para coleta dados.
+## Origem dos Dados
 
-Para esse trabalho foram criados duas camadas de dados: raw e trusted.
+Os dados são obtidos a partir da API `randomuser.me` com a seguinte URL: [https://randomuser.me/api/?results=10](https://randomuser.me/api/?results=10)
 
-Utilizamos Python para leitura, gravação em raw, transformação e gravação em trusted.
+## Requisitos do Sistema
 
-Após a coleta de dados, é feita a transformação e então inserido em uma tabela do MySQL.
+### Armazenamento de Dados
 
-Os dados tratados foram caracteres especiais transformação das strings para lowercase (minúsculas).
+- Os dados brutos são armazenados em um diretório específico.
+- Os dados saneados são armazenados em uma tabela MySQL.
 
-Durante o processo de ingestão e preparação, utilizamos o "try except" para geração de logs.
+### Tratamentos Mínimos dos Dados
 
-Para a visualização dos dados tratados, foi criado um Dockerfile a partir da imagem do MySQL.
+- Tratamento de tipos.
+- Tratamento de nomes.
+- Padronização dos dados: remoção dos caracteres especiais e transformação das strings para minúsculas.
 
-    make build: para criar a imagem docker.
+### Registros e Tratamento de Exceção
 
-    make up: para subir a imagem docker local.
+- Inserção de log de informação para cada etapa do processo de ingestão e preparação.
+- Tratamento de exceção para cada etapa do processo de ingestão e preparação.
 
-Foi gerado um Docker-Image e gerado um Docker-Compose para a criação do container e a execução da visualização dos dados tratados.
+### Componentes
 
+- Dockerfile:
+  - Configuração do ambiente Python para a aplicação de ingestão, preparação e armazenamento dos dados.
+
+- Scripts Python com docstring para cada etapa do processo.
+
+- Docker-compose para levantar a aplicação Python e o MySQL.
+  - Configuração do MySQL com a criação da tabela.
+
+### Workflow GitActions
+
+- Implementação de um workflow no GitActions que realiza as seguintes ações:
+  - Validação do código Python com pylint.
+  - Salvamento da imagem da aplicação Python no DockerHub.
+
+## Estrutura do Projeto
 ```
-dataops04
-│ README.md
-│ .gitignore
-│ .github/workflows
-| README.md
-| docker-compose.yml
-└───imgs
-|
-└───python
-│ | Dockerfile
-| └────scripts
-│ │ │ ingestion.py
-│ │ │ config.py
-│ │ │ utils.py
-│ │ │ metadado.xlsx
-│ └────data
-│ │ │ └─── raw
-| │ | └─── work
-|
-└───mysql
-│ | Dockerfile
-│ └────db
-| | | CreateDtabase.sql
+mba-de-04-dataops-atividade-final/
+│
+├── .github/
+│  └── workflows/
+│    └── publish_dockerhub.yml
+│
+├── imgs/
+│    ├── aula02.jpg
+│    ├── imagem1.jpeg
+│    ├── imagem1.jpeg:Zone.Identifier
+│    └── projeto_final.png
+│
+├── mysql/
+│  └── db
+│    └── CreateDatabase.sql
+│
+├── python/
+│  └── scripts
+│    ├── data
+│      └── raw
+│        └── .gitkeep
+│    ├── config.py
+│    ├── config.py
+│    ├── ingestion.py
+│    ├── metadados.xlsx
+│    └── utils.py
+│  ├── Dockerfile
+│  └── requirements.txt
+│
+├── .gitignore
+├── README.md
+└── docker-compose.yml
 ```
 
-Integrantes:
+## Integrantes do Grupo
 
-Alisson Machado Sousa
-
-Tatiana Fernanda Terra
-
-Daniel Kardec de Santana Oliveira
-
-Fábio Augusto de Lorenzo Tavares
-
-Luis Fernando Joaquim de Sena
-
-Eduardo Vitor Oliveira Cunha
+- Alisson Machado Sousa
+- Tatiana Fernanda Terra
+- Daniel Kardec de Santana Oliveira
+- Fábio Augusto de Lorenzo Tavares
+- Luis Fernando Joaquim de Sena
+- Eduardo Vitor Oliveira Cunha
