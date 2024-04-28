@@ -89,3 +89,4 @@ mba-de-04-dataops-atividade-final/
 - Fábio Augusto de Lorenzo Tavares
 - Luis Fernando Joaquim de Sena
 - Eduardo Vitor Oliveira Cunha
+- 
