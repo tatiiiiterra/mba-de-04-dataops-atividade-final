@@ -18,7 +18,7 @@ services:
             retries: 5
 
     pythonapp:
-        image: luisfjs/dataops-python:main
+        image: luisfjs/dataops-python:develop
         command: sh -c "python3 scripts/ingestion.py"
         environment:
             URL: https://randomuser.me/api/?results=10
