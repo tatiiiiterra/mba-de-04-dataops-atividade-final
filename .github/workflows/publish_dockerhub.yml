@@ -53,4 +53,4 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        args: --build-arg db_user=${{ secrets.DB_USER }} --build-arg db_password=${{ secrets.DB_PASSWORD }} #teste
+        args: --build-arg db_user=${{ secrets.DB_USER }} --build-arg db_password=${{ secrets.DB_PASSWORD }}
