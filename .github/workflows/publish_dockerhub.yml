@@ -43,7 +43,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v5.5.1
       with:
-        images: luisfjs/dataops-python
+        images: tatianaterra/dataops-python
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v5.3.0
